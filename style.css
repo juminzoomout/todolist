@@ -156,6 +156,12 @@ input:focus {
   flex-direction: column;
 }
 
+.todo-element {
+  margin: 1rem 0;
+  border-radius: 10px;
+  display: flex;
+}
+
 .day {
   display: none;
 

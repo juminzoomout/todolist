@@ -6,28 +6,30 @@ const userInputs = addTodoModal.querySelectorAll('input');
 
 const todo = [];
 
-const updateUI = () => {
-  if (todo.length === 0) {
-    entryTextSection.style.display = 'block';
-  } else {
-    entryTextSection.style.display = 'none';
-  }
-};
-
 const renderNewTodoElement = (whatToDo) => {
   const newTodoElement = document.createElement('li');
   newTodoElement.className = 'todo-element';
   newTodoElement.innerHTML = `
     <div class="todo-element__info">
-      <h3>${whatToDo}</h3>
+      <input type="checkbox" />
+      <h3 style="display: inline">${whatToDo}</h3>
     </div>
   `;
   /*newTodoElement.addEventListener(
     'click'
     startDeleteMovieHandler.bind(null, id)
   );*/
-  const listRoot = document.getElementById('todo-list');
-  listRoot.append(newTodoElement);
+
+  //const listRoot = document.getElementById('todo-list');
+  //listRoot.append(newTodoElement);
+
+  const whatDay = document.querySelectorAll('.day');
+  for (let i = 0; i < whatDay.length; i++) {
+    if (whatDay[i].classList.contains('active')) {
+      const listRoot = whatDay[i].childNodes[1];
+      listRoot.append(newTodoElement);
+    }
+  }
 };
 
 const closeTodoModal = () => {
@@ -67,7 +69,6 @@ const addTodoHandler = () => {
   closeTodoModal();
   clearTodoInput();
   renderNewTodoElement(newTodo.whatToDo);
-  updateUI();
 };
 
 let date = document.querySelectorAll('tr td');
@@ -75,12 +76,10 @@ let date = document.querySelectorAll('tr td');
 for (let i = 0; i < date.length; i++) {
   date[i].onclick = function () {
     let tabID = this.querySelector('a').getAttribute('href');
-    console.log(this.classList);
     document.querySelectorAll('.days .day').forEach(function (item) {
       item.classList.remove('active');
     });
     document.querySelector(tabID).classList.add('active');
-    // this.classList.add('active');
   };
 }
 
